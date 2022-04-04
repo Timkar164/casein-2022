@@ -1,0 +1,27 @@
+.header {
+    width: 100%;
+    padding: 20px 0;
+    box-shadow: 0 0 10px #00d4e5;
+}
+
+.header__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-height: 100px;
+}
+
+.header__logo {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.header__lk {
+    max-height: 100px;
+    
+}
+
+.header__lk svg {
+    max-height: 50px;
+}

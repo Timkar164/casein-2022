@@ -1,0 +1,18 @@
+<h2>Video in {{ngVersion}}</h2>
+<button id="showVideo" (click)="initVideo($event)" [disabled]="streaming">
+   Open camera
+</button>
+
+<br>
+
+<button id="showVideo" (click)="closeVideo($event)" [disabled]="streaming">
+   Close camera
+</button>
+
+<br>
+
+<pre *ngIf="error">
+  {{error | json}}
+</pre>
+
+<video #video width="1280" height="720"></video>

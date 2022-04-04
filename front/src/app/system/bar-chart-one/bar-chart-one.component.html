@@ -1,0 +1,25 @@
+<div class="dropdown">
+   <select name="" id="" class="dropdown__select" [(ngModel)]="clusterID" (change)="get_data_by_id(funcID,clusterID,column)">
+     <option *ngFor="let tech of numbers" [value]="tech">{{tech}}</option>
+   </select>
+</div>
+<div class="dropdown">
+  <select name="" id="" class="dropdown__select" [(ngModel)]="funcID" (change)="get_data_by_id(funcID,clusterID,column)">
+    <option *ngFor="let fun of funcs" [value]="fun">{{fun}}</option>
+  </select>
+</div>
+<div class="dropdown">
+    <select name="" id="label" class="dropdown__select"[(ngModel)]="column" (change)="get_data_by_id(funcID,clusterID,column)">
+      <option *ngFor="let col of columns" [value]="col">{{col}}</option>
+    </select>
+</div>
+<div>
+   <div>
+      <div style="display: block">
+         <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+            [type]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+         </canvas>
+      </div>
+
+   </div>
+</div>

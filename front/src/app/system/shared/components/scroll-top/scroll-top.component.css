@@ -1,0 +1,18 @@
+.btn__up-link {
+    position: fixed;
+    display: block;
+    width: 55px;
+    bottom: 20px;
+    left: 20px;
+    z-index: 3;
+    opacity: 0;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+.btn__up-link img {
+    width: 100%;
+}
+
+.show-scrollTop {
+    opacity: 1;
+}

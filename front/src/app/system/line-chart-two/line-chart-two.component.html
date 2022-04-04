@@ -1,0 +1,19 @@
+<div class="dropdown">
+  <select name="" id="tech" class="dropdown__select" [(ngModel)]="dataID" (change)="get_data_by_id(dataID,column)">
+    <option *ngFor="let tech of datas" [value]="tech">{{tech}}</option>
+  </select>
+</div>
+
+<div class="dropdown">
+  <select name="" id="label" class="dropdown__select"[(ngModel)]="column" (change)="get_data_by_id(dataID,column)">
+    <option *ngFor="let col of columns" [value]="col">{{col}}</option>
+  </select>
+</div>
+<div class="flex">
+   <div class="flex-item">
+      <div style="display: block;">
+         <canvas baseChart width="400" height="400" [data]="lineChartData" [options]="lineChartOptions"
+            [type]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+      </div>
+   </div>
+</div>

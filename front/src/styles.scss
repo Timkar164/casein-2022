@@ -1,0 +1,157 @@
+html {
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   box-sizing: border-box;
+   height: 100%;
+   overflow-x: hidden;
+}
+
+*,
+*:before,
+*:after {
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   box-sizing: border-box;
+}
+
+ul[class],
+ol[class] {
+   padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+   margin: 0;
+}
+
+ul[class] {
+   list-style: none;
+}
+
+img {
+   max-width: 100%;
+   display: block;
+}
+
+input,
+button,
+textarea,
+select {
+   font: inherit;
+   border: none;
+}
+
+a {
+   color: #000000;
+   text-decoration: none;
+   :hover {
+      color: #253469;
+   }
+}
+
+body {
+   height: 100%;
+   width: 100%;
+   font-family: "Open Sans", sans-serif;
+   font-size: 16px;
+   line-height: 130%;
+   margin: 0px;
+   padding: 0px;
+   background: #0f051c;
+}
+
+.container {
+   margin: 0 auto;
+   padding: 0 10px;
+}
+
+@media (min-width: 1400px) {
+   .container {
+      max-width: 1320px;
+   }
+}
+
+.logo {
+}
+
+.my_title {
+   font-family: "Merriweather", serif;
+   font-weight: 400;
+   font-size: 40px;
+   color: #212121;
+}
+
+.my_link {
+   background: rgba(207, 237, 244, 0.59);
+   border-radius: 40px;
+   padding: 15px;
+   font-weight: 400;
+   font-size: 20px;
+   color: #ffffff;
+   cursor: pointer;
+   :hover {
+      color: #253469;
+   }
+}
+
+.dropdown {
+   width: 100%;
+   margin-bottom: 15px;
+}
+
+.dropdown__select {
+   background: rgb(111, 142, 183);
+   width: 90%;
+   display: block;
+   margin: 0 auto;
+   text-align: center;
+   border-radius: 15px;
+   padding: 5px 15px;
+   box-shadow: 0 0 5px #00d4e5;
+   cursor: pointer;
+}
+
+.dashboard__list .row {
+   justify-content: space-around;
+}
+
+
+// ///////////////////////////////////////////////////////////////////
+
+// @media (min-width: 992px ) and (max-width: 1200px) {
+//    .col-lg-2 {
+//       width: 20%;
+//    }
+// }
+
+// @media (min-width: 768px ) and (max-width: 991px) {
+//    .col-lg-2 {
+//       width: 25%;
+//    }
+// }
+
+// @media (min-width: 576px ) and (max-width: 767px) {
+//    .col-lg-2 {
+//       width: 33.33333333%;
+//    }
+// }
+
+// @media (min-width: 440px ) and (max-width: 575px) {
+//    .col-lg-2 {
+//       width: 50%;
+//    }
+// }

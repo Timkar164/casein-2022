@@ -1,0 +1,55 @@
+<div class="dashboard__page">
+   <div class="container">
+      <div class="dashboard__wrapper">
+         <div class="dashboard__download">
+            <div class="dashboard__input-wrapper">
+               <p class="">Кластеры:</p>
+               <input class="dashboard__input" type="text" placeholder="Введите число" [(ngModel)]="cluster"
+                  (change)="sendcluster()">
+            </div>
+
+            <label class="custom-file-upload">
+               <input type="file" id="file" multiple (change)="getFileDetails($event)">
+               Select a file
+            </label>
+
+            <button (click)="uploadFiles()">Upload</button>
+
+         </div>
+         <div class="dashboard__list">
+            <div class="dashboard__list-item ">
+               <h3 class="dashboard__list-title">Пробег транспортных средств</h3>
+               <p class="dashboard__list-text">Тут может быть текст</p>
+               <p class="dashboard__list-text">Тут может быть текст</p>
+               <p class="dashboard__list-text">Тут может быть текст</p>
+               <div class="dashboard__list-wrapper row">
+                  <div class="dashboard__list-graphic col-lg-6">
+                     <app-line-chart-one></app-line-chart-one>
+                  </div>
+                  <div class="dashboard__list-graphic col-lg-6">
+                     <app-line-chart-two></app-line-chart-two>
+                  </div>
+               </div>
+               <div class="dashboard__list-wrapper row">
+                  <div class="dashboard__list-graphic col-lg-6">
+                     <app-bar-chart-one [title]="cluster"></app-bar-chart-one>
+                  </div>
+                  <div class="dashboard__list-graphic dashboard__list-graphic-pieone col-lg-6">
+                     <app-pie-chart-one></app-pie-chart-one>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="dashboard__table">
+            <div class="dashboard__table-row dashboard__table-titles">
+               <div class="dashboard__table-col dashboard__table-title">id техники</div>
+               <div class="dashboard__table-col dashboard__table-title">Метка класса</div>
+            </div>
+            <div class="dashboard__table-row dashboard__table-row--red" *ngFor="let item of tabledata">
+               <div class="dashboard__table-col" style="background-color: {{stylecolor[item.class+1]}}">{{item.id}}</div>
+               <div class="dashboard__table-col" style="background-color: {{stylecolor[item.class+1]}}">Кластер {{item.class}}</div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
