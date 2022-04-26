@@ -19,5 +19,22 @@
             </button>
          </div>
       </div>
+      <div class="vehicle__table-row" *ngFor="let tec of technics; index as i">
+         <div class="vehicle__table-item">{{tec.name}}</div>
+         <div class="vehicle__table-item">{{tec.worker}}</div>
+         <div class="vehicle__table-item">
+            <p class="vehicle__table-state">
+               {{tec.state}}
+            </p>
+         </div>
+         <div class="vehicle__table-item">
+            <button class="vehicle__table-btn vehicle__table-btn--edit">
+               <img src="../../../../assets/img/edit.png" alt="" class="vehicle__table-btn--img">
+            </button>
+            <button class="vehicle__table-btn vehicle__table-btn--remove" (click)="onRemoveClick(tec)">
+               <img src="../../../../assets/img/remove.png" alt="" class="vehicle__table-btn--img">
+            </button>
+         </div>
+      </div>
    </div>
 </div>

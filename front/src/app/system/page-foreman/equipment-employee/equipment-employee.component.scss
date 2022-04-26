@@ -1,6 +1,8 @@
 .equipment {
    width: 100%;
    background: rgba(87, 71, 125, 0.28);
+   max-height: 400px;
+   height: 100%;
 }
 
 .equipment__title {
@@ -16,16 +18,18 @@
    padding-bottom: 16px;
    font-size: 16px;
    line-height: 20px;
+   overflow-y: auto;
+   max-height: 330px;
 }
 
 .equipment__table-row {
    display: flex;
    justify-content: space-between;
    align-items: center;
+   padding: 10px;
    &:nth-child(even) {
       background: #2d2442;
    }
-   padding: 10px;
 }
 
 .equipment__table-item {
@@ -37,7 +41,7 @@
    justify-content: center;
    align-items: center;
    &:last-child {
-      max-width: 10%;
+      max-width: 15%;
    }
 }
 
@@ -47,16 +51,51 @@
    padding: 8px 12px;
    text-align: center;
    color: #1f9254;
+   cursor: pointer;
 }
 
 .equipment__table-btn {
    padding: 0;
    background: none;
    cursor: pointer;
-   &:last-child {
+   & + .equipment__table-btn {
       margin-left: 16px;
    }
 }
 
 .equipment__table-btn--img {
+   width: 20px;
+   height: 20px;
+}
+
+.equipment__table-add {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 10px;
+}
+
+.equipment__add-item {
+   max-width: 25%;
+   width: 100%;
+   padding: 5px;
+}
+
+.equipment__add-select {
+   border-radius: 20px;
+   outline: none;
+}
+
+.equipment__add-textarea {
+   border-radius: 20px;
+   outline: none;
+}
+
+.equipment__table-edi--input {
+   margin: 0 5px;
+   width: calc(100% - 10px);
+   border-radius: 20px;
+   outline: none;
+   padding: 5px;
+   max-width: 20%;
 }

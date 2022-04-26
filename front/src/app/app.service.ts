@@ -50,4 +50,17 @@ export class AppService {
     const req = this.http.get(API+'changestattask?id='+taskid);
     return req
   }
+  getworkerinfo(user:any){
+    const req = this.http.get(API+'wokerinfo?id='+user);
+    return req
+  }
+   getshering(){
+     const req = this.http.get(API+'getshering');
+     return req
+   }
+   changeshering(id:any,stat:any){
+     const req = this.http.get(API+'changeshering?id='+id+'&stat='+stat);
+     return req
+   }
+
 }

@@ -26,17 +26,17 @@
                <div class="foreman__main-top--item">
                   <app-execution-control></app-execution-control>
                </div>
-               <div class="foreman__main-top--item">
+               <div class="foreman__main-top--item" *ngIf="technics.length>0">
                   <app-vehicle-control [technics]="technics" (onRemoveTechnics)="handleRemoveTechnics($event)">
                   </app-vehicle-control>
                </div>
             </div>
 
             <div class="foreman__main-center">
-               <div class="foreman__main-center--item">
+               <div class="foreman__main-center--item" *ngIf="workers.length>0">
                   <app-list-workers [workers]="workers"></app-list-workers>
                </div>
-               <div class="foreman__main-center--item">
+               <div class="foreman__main-center--item" *ngIf="equipments.length>0">
                   <app-equipment-employee [equipments]="equipments"
                      (onRemoveEquipments)="handleRemoveEquipments($event)" (onAddEquipments)="handleAddEquipments($event)" (onCnageEquipments)="handleChangeEquipments($event)"></app-equipment-employee>
                </div>

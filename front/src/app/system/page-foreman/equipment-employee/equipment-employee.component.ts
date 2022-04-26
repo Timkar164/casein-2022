@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {AppService} from "../../../app.service";
+import { AppService } from "../../../app.service";
 
 export interface Equipment {
   worker: String;
   name: String;
   date: String;
   state: String;
-  id:String;
+  id?: String;
+  change?: boolean;
 }
 
 @Component({
@@ -15,19 +16,22 @@ export interface Equipment {
   styleUrls: ['./equipment-employee.component.scss']
 })
 export class EquipmentEmployeeComponent implements OnInit {
-  public pipls:any;
-  public techs:any;
-  public user:any;
-  public tech:any;
-  public text='';
+  public pipls: any;
+  public techs: any;
+  public user: any;
+  public tech: any;
+  public text = '';
 
-  public flag1=false;
+  public flag1 = false;
   public flag2 = false;
-  public ids:any;
-  constructor(private servise:AppService) { }
+  public ids: any;
+  constructor(private servise: AppService) { }
 
   ngOnInit(): void {
-     this.update()
+    this.update()
+    for (let index = 0; index < this.equipments.length; index++) {
+      this.equipments[index].change = false;
+    }
   }
 
   @Input()
@@ -43,48 +47,51 @@ export class EquipmentEmployeeComponent implements OnInit {
   onRemoveClick(element: Equipment) {
     this.onRemoveEquipments.emit(element);
   }
-  onAddClick(elenent: Equipment){
+  onAddClick(elenent: Equipment) {
     this.onAddEquipments.emit(elenent);
   }
-  onCnangeClick(element:Equipment){
+  onCnangeClick(element: Equipment) {
     this.onCnageEquipments.emit(element)
   }
-
-  update(){
-    this.servise.getallusers().subscribe(value => {
-      this.pipls=value;
-      this.flag1=true;
-    })
-    this.servise.getalltech().subscribe(value => {
-      this.techs=value;
-      this.flag2=true;
-    })
+  onEditClick(element: Equipment) {
+    element.change = !element.change;
   }
 
-  mySelectHandler1(e:any){
-    this.user=e
+  async update() {
+    await this.servise.getallusers().subscribe(value => {
+      this.pipls = value;
+      this.flag1 = true;
+    })
+    await this.servise.getalltech().subscribe(value => {
+      this.techs = value;
+      this.flag2 = true;
+    })
   }
-  mySelectHandler2(e:any){
-    this.tech=e
+
+  mySelectHandler1(e: any) {
+    this.user = e
   }
-  cangeStat(task:Equipment){
+  mySelectHandler2(e: any) {
+    this.tech = e
+  }
+  cangeStat(task: Equipment) {
     this.onCnangeClick(task);
     this.servise.changeStat(task.id).subscribe(value => {
       console.log(value)
     })
   }
-  addTask(){
+  addTask() {
     let Data = new Date();
-    let data = Data.getDate() +'.'+ Data.getMonth() +'.'+ Data.getFullYear();
-    this.servise.setTask(this.user.id,this.tech.id,this.text,data).subscribe(value => {
+    let data = Data.getDate() + '.' + Data.getMonth() + '.' + Data.getFullYear();
+    this.servise.setTask(this.user.id, this.tech.id, this.text, data).subscribe(value => {
       console.log(value);
-      this.ids=value;
-      this.onAddClick( {
-        worker: this.user.fname+ '.'+ this.user.name[0] + '.'+ this.user.oname[0],
+      this.ids = value;
+      this.onAddClick({
+        worker: this.user.fname + '.' + this.user.name[0] + '.' + this.user.oname[0],
         name: this.tech.name,
         date: data,
         state: "В работе",
-        id:this.ids.id
+        id: this.ids.id
       })
     })
   }

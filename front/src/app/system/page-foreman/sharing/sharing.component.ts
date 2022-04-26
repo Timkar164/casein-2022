@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {AppService} from "../../../app.service";
+import validate = WebAssembly.validate;
 
-export interface SharingItem {
-  img: String;
-  name: String;
-  state: String;
-}
+
 
 @Component({
   selector: 'app-sharing',
@@ -12,70 +10,35 @@ export interface SharingItem {
   styleUrls: ['./sharing.component.scss']
 })
 export class SharingComponent implements OnInit {
-
-  constructor() { }
+  public req1:any;
+  public sharingList:any = []
+  constructor(private servise: AppService,private changeDetection: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+this.update()
   }
+  async getsharing(tech:any){
+    if(tech.stat=='в простое'){
+     await this.servise.changeshering(tech.id,'в аренде').subscribe(value => {
+       console.log(value)
+     })
+    }
+    if(tech.stat=='в аренде'){
+      await this.servise.changeshering(tech.id,'в простое').subscribe(value => {
+        console.log(value)
+      })
+    }
+    await this.update();
+    this.changeDetection.detectChanges();
 
-  sharingList: SharingItem[] = [
-    {
-      img: "../../../../assets/img/sharing__bg.png",
-      name: "Название",
-      state: "стоит сдать"
-    },
-    {
-      img: "../../../../assets/img/sharing__bg.png",
-      name: "Название",
-      state: "можно сдать "
-    },
-    {
-      img: "../../../../assets/img/sharing__bg.png",
-      name: "Название",
-      state: "сдавать не стоит"
-    },
-    {
-      img: "../../../../assets/img/sharing__bg.png",
-      name: "Название",
-      state: "стоит сдать"
-    },
-    {
-      img: "../../../../assets/img/sharing__bg.png",
-      name: "Название",
-      state: "можно сдать "
-    },
-    {
-      img: "../../../../assets/img/sharing__bg.png",
-      name: "Название",
-      state: "сдавать не стоит"
-    }, {
-      img: "../../../../assets/img/sharing__bg.png",
-      name: "Название",
-      state: "стоит сдать"
-    },
-    {
-      img: "../../../../assets/img/sharing__bg.png",
-      name: "Название",
-      state: "можно сдать "
-    },
-    {
-      img: "../../../../assets/img/sharing__bg.png",
-      name: "Название",
-      state: "сдавать не стоит"
-    }, {
-      img: "../../../../assets/img/sharing__bg.png",
-      name: "Название",
-      state: "стоит сдать"
-    },
-    {
-      img: "../../../../assets/img/sharing__bg.png",
-      name: "Название",
-      state: "можно сдать "
-    },
-    {
-      img: "../../../../assets/img/sharing__bg.png",
-      name: "Название",
-      state: "сдавать не стоит"
-    },
-  ]
+  }
+ update(){
+   this.servise.getshering().subscribe(value => {
+     this.req1=value;
+     this.sharingList=this.req1.items;
+     console.log(this.sharingList);
+     this.changeDetection.detectChanges();
+   })
+ }
+
 }

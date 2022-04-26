@@ -14,7 +14,7 @@ export class DoughnutChartOneComponent implements OnInit {
   }
 
   // Doughnut
-  public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
+  public doughnutChartLabels: string[] = ['УРАЛ ППУА', 'УРАЛ Самосвал 1', 'Mercedes-3341 Самосвал 7'];
   public doughnutChartData: ChartData<'doughnut'> = {
     labels: this.doughnutChartLabels,
     datasets: [

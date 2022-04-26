@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Equipment } from './equipment-employee/equipment-employee.component';
 import { Technic } from './vehicle-control/vehicle-control.component';
 import { Worker } from './list-workers/list-workers.component';
-import {Router} from "@angular/router";
-import {AppService} from "../../app.service";
+import { Router } from "@angular/router";
+import { AppService } from "../../app.service";
 
 @Component({
   selector: 'app-page-foreman',
@@ -11,34 +11,37 @@ import {AppService} from "../../app.service";
   styleUrls: ['./page-foreman.component.scss']
 })
 export class PageForemanComponent implements OnInit {
-  public req:any;
-  public info:any;
-  constructor(private router: Router,private service: AppService) { }
+  public req: any;
+  public req2: any;
+  public req3: any;
+  public 5: any;
+  public info: any;
+  constructor(private router: Router, private service: AppService) { }
 
-  ngOnInit(): void {
-    if(localStorage.getItem('type')!=='1'){
+  async ngOnInit(): Promise<void> {
+    if (localStorage.getItem('type') !== '1') {
       localStorage.clear();
       this.router.navigate(['auth'])
     }
-    this.service.getworker().subscribe(value => {
+    await this.service.getworker().subscribe(value => {
       console.log(value);
-      this.req=value;
+      this.req = value;
       this.workers = this.req.items
     })
-    this.service.gettech().subscribe(value => {
+    await this.service.gettech().subscribe(value => {
       console.log(value);
-      this.req=value;
-      this.technics = this.req.items
+      this.req2 = value;
+      this.technics = this.req2.items
     })
-    this.service.gettask().subscribe(value => {
+    await this.service.gettask().subscribe(value => {
       console.log(value);
-      this.req=value;
-      this.equipments = this.req.items
+      this.req3 = value;
+      this.equipments = this.req3.items
     })
-    this.service.getadminfo().subscribe(value => {
-      this.info=value;
-      this.tasks=this.info.all;
-      this.notFinishedTasks=this.info.open;
+    await this.service.getadminfo().subscribe(value => {
+      this.info = value;
+      this.tasks = this.info.all;
+      this.notFinishedTasks = this.info.open;
     })
   }
 
@@ -51,52 +54,15 @@ export class PageForemanComponent implements OnInit {
   DeadLinedays = 10;
 
   technics: Technic[] = [
-    {
-      name: "Техника 1",
-      worker: "Иванов Ф.А.",
-      state: "Закончено",
-    },
-    {
-      name: "Техника 2",
-      worker: "Петрова Д.В.",
-      state: "Закончено",
-    },
-    {
-      name: "Техника 3",
-      worker: "Дорохова Ж.Н.",
-      state: "В процессе",
-    },
-    {
-      name: "Техника 4",
-      worker: "Лаптев И.Е.",
-      state: "В процессе",
-    },
+
   ]
 
   workers: Worker[] = [
-    {
-      img: "../../../../assets/img/workers__img.png",
-      name: "Иван Иванов",
-      post: "Дизайнер"
-    },
-    {
-      img: "../../../../assets/img/workers__img.png",
-      name: "Рома Шахматов",
-      post: "Тимлид"
-    },
-    {
-      img: "../../../../assets/img/workers__img.png",
-      name: "Аня Ромашкова",
-      post: "Бухгалтер"
-    },
-    {
-      img: "../../../../assets/img/workers__img.png",
-      name: "София Захарова",
-      post: "Дизайнер"
-    },
+
   ]
 
-  equipments: Equipment[] = [];
+  equipments: Equipment[] = [
+  ]
 
   handleRemoveTechnics(element: Technic) {
     this.technics = this.technics.filter((e) => element.name !== e.name);
@@ -107,16 +73,18 @@ export class PageForemanComponent implements OnInit {
     this.equipments = this.equipments.filter((e) => element.name !== e.name);
     console.log("removed", element);
   }
-  handleAddEquipments(element: Equipment){
+
+  handleAddEquipments(element: Equipment) {
     this.equipments.push(element);
     console.log(this.equipments)
   }
-  handleChangeEquipments(element: Equipment){
+
+  handleChangeEquipments(element: Equipment) {
     console.log('sdasdasd');
-    for(let i=0; i<this.equipments.length;i++){
+    for (let i = 0; i < this.equipments.length; i++) {
       console.log(this.equipments[i].id);
-      if(this.equipments[i].id==element.id){
-        this.equipments[i].state='Выполнено';
+      if (this.equipments[i].id == element.id) {
+        this.equipments[i].state = 'Выполнено';
         console.log('change')
       }
     }

@@ -2,12 +2,12 @@
    <div class="container">
       <div class="worker__wrapper">
          <h1 class="worker__hello">
-            Привет, пользователь!
+            Привет, {{name}}!
          </h1>
 
          <div class="worker__top">
             <div class="worker__top-item">
-               <h3 class="worker__top-title">{{machine}} </h3>
+               <h3 class="worker__top-title">{{techname}} </h3>
                <p class="worker__top-text">закрепленная за вами техника</p>
             </div>
             <div class="worker__top-item">
@@ -15,7 +15,7 @@
                <p class="worker__top-text">{{notFinishedTasks}} незаконченных</p>
             </div>
             <div class="worker__top-item">
-               <h3 class="worker__top-title">{{workClock}} дней</h3>
+               <h3 class="worker__top-title">{{workClock}}</h3>
                <p class="worker__top-text">ваши рабочие часы</p>
             </div>
          </div>

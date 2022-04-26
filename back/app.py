@@ -208,7 +208,7 @@ def get_columns_api():
     return {'items': list(df.columns) + ['Средняя скорость']}
 
 
-@app.route("/indexfile", methods=["POST", "GET"])
+@app.route("/files", methods=["POST", "GET"])
 def index_file_api():
     user_id=1
     global n, k, t, LASTFILE
@@ -347,11 +347,14 @@ def get_clusters_len():
 @app.route("/getclusterid", methods=["POST", "GET"])
 def get_clusters_id():
     global n, k, t
-
+    df = pd.read_excel('vehicles_ids.xls')
     length = len(set(k.labels_))
     res = []
     for i in range(len(k.labels_)):
-        res.append({'id': int(t[i]), 'class': int(k.labels_[i])})
+        try:
+         res.append({'id': df[df['id']==int(t[i])]['Транспортное средство'].iloc[0], 'class': int(k.labels_[i])})
+        except:
+         res.append({'id': int(t[i]), 'class': int(k.labels_[i])})
 
     return {'items': res, 'len': int(length)}
 
@@ -383,7 +386,7 @@ def user_api():
         name , fname , oname, post = request.json["name"], request.json["fname"], request.json["oname"], request.json["post"]
         user =sql.sql_select('users',{'login':email})['items']
         if not user:
-         id_s = sql.sql_insert('users',{'login':email,'pas':password,'name':name,'fname':fname,'oname':oname,'type':'0','lastfile':'','post':post})
+         id_s = sql.sql_insert('users',{'login':email,'pas':password,'name':name,'fname':fname,'oname':oname,'type':'0','lastfile':'','post':post,'timer':'0'})
          return {"response":True,'user':id_s['id'],'type':'0'}
         else:
          return {'response:':False,'error':'user in database'}
@@ -474,6 +477,39 @@ def changestattask():
       id_s = request.args['id']
       sql.sql_update('task', {'id':id_s,'stat':'Выполнено'})
       return {'response:':True}
+  
+    
+@app.route("/wokerinfo", methods=["POST", "GET"])
+def wokerinfo():
+    if request.method == "GET":
+      id_s = request.args['id']
+      user = sql.sql_select('users',{'id':str(id_s)})['items'][0]
+      users = sql.sql_select('users',{'type':'0'})['items']
+      tasks = sql.sql_select('task',{'userid':id_s})['items']
+      utech = sql.sql_select('tech',{'userid':id_s})['items']
+      if utech:
+          nametech = utech[0]['name']
+      else:
+          nametech='-'
+      notclose = 0
+      for i in tasks:
+          if i['stat']=='В работе':
+              notclose+=1
+      return {'task':tasks,'all':len(tasks),'notclose':notclose,'timer':user['timer'],'users':users,'name':user['name'],'techname':nametech}
+      
+  
+@app.route("/getshering", methods=["POST", "GET"])
+def getshering():
+    if request.method == "GET":
+      tech = sql.sql_select('tech',{'stat':['в простое','в аренде']})['items']
+      return {'response:':True,'items':tech}
+  
+@app.route("/changeshering", methods=["POST", "GET"])
+def changeshering():
+    if request.method == "GET":
+      id_s = request.args['id']
+      stat = request.args['stat']
+      return sql.sql_update('tech',{'id':id_s,'stat':stat})
   
 if __name__ == '__main__':
     app.run()

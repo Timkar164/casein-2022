@@ -15,6 +15,23 @@ html {
    -moz-box-sizing: border-box;
    box-sizing: border-box;
    scrollbar-width: thin;
+   scrollbar-color: #00d4e5 #2d2442;
+}
+
+::-webkit-scrollbar {
+   width: 7px;
+}
+::-webkit-scrollbar:horizontal {
+   height: 7px;
+}
+::-webkit-scrollbar-track {
+   background: red;
+}
+::-webkit-scrollbar-track-piece {
+   background: #2d2442;
+}
+::-webkit-scrollbar-thumb {
+   background: #00d4e5;
 }
 
 ul[class],
@@ -135,6 +152,21 @@ body {
    justify-content: space-around;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: red;
+}
+::-webkit-scrollbar-track-piece {
+  background: #2d2442;
+}
+::-webkit-scrollbar-thumb {
+  background: #00d4e5;
+}
 // ///////////////////////////////////////////////////////////////////
 
 // @media (min-width: 992px ) and (max-width: 1200px) {
