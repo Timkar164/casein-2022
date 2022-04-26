@@ -1,0 +1,41 @@
+<div class="equipment">
+   <h3 class="equipment__title">Распределение задач</h3>
+
+   <div class="equipment__table">
+      <div class="equipment__table-row" *ngFor="let equip of equipments; index as i">
+         <div class="equipment__table-item">{{equip.worker}}</div>
+         <div class="equipment__table-item">{{equip.name}}</div>
+         <div class="equipment__table-item">{{equip.date}}</div>
+         <div class="equipment__table-item">
+            <p class="equipment__table-state" (click)="cangeStat(equip)">
+               {{equip.state}}
+            </p>
+         </div>
+         <div class="equipment__table-item">
+            <button class="equipment__table-btn equipment__table-btn--edit">
+               <img src="../../../../assets/img/edit.png" alt="" class="equipment__table-btn--img">
+            </button>
+            <button class="equipment__table-btn equipment__table-btn--remove" (click)="onRemoveClick(equip)">
+               <img src="../../../../assets/img/remove.png" alt="" class="equipment__table-btn--img">
+            </button>
+         </div>
+      </div>
+     <div *ngIf="flag2&&flag1">
+       <select ngModel (ngModelChange)="mySelectHandler1($event)"> // value is an object
+         <option *ngFor="let obj of pipls.items" [ngValue]="obj">{{obj.fname}}</option>
+       </select>
+
+       <select ngModel (ngModelChange)="mySelectHandler2($event)"> // value is an object
+         <option *ngFor="let obj of techs.items" [ngValue]="obj">{{obj.name}}</option>
+       </select>
+
+       <textarea type="name" class="input_form" name="auth_name" placeholder="Опишите задачу" required [(ngModel)]="text"></textarea>
+       <div class="equipment__table-item" >
+         <p class="equipment__table-state" (click)="addTask()">
+           Добавить
+         </p>
+       </div>
+     </div>
+
+   </div>
+</div>

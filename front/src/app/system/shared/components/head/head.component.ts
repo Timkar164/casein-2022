@@ -23,6 +23,9 @@ export class HeadComponent implements OnInit {
   navActive() {
     this.navIsAvtive = !this.navIsAvtive;
   }
+  exit(){
+    localStorage.clear()
+  }
 }
 
 

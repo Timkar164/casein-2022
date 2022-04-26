@@ -1,0 +1,29 @@
+<div class="container">
+   <div class="main_block">
+      <a [routerLink]="['']">
+         <img src="../../../assets/img/logo.png" alt="" class="logo_neimark">
+      </a>
+      <div class="form_auth_block">
+         <div class="form_auth_block_content">
+            <p class="form_auth_block_head_text">Вход</p>
+            <form class="form_auth_style" action="#" method="post">
+               <input type="email" class="input_form" name="auth_email" placeholder="Почта" required [(ngModel)]="login">
+
+               <input type="password" class="input_form" name="auth_pass" placeholder="Пароль" required [(ngModel)]="pas">
+               <div class="block_btn">
+                  <button class="form_auth_button" type="submit" name="form_auth_submit" (click)="auth()">Войти</button>
+               </div>
+
+            </form>
+         </div>
+      </div>
+      <div class="hyperlink_to_password">
+         <p>Забыли&nbsp; </p>
+         <a href="" class="password_">пароль?</a>
+      </div>
+      <div class="hyperlink_to_password">
+         <p>Нету аккаунта? </p>
+         <a [routerLink]="['', 'registration']" class="password_"> &nbsp; Зарегистрируйтесь</a>
+      </div>
+   </div>
+</div>

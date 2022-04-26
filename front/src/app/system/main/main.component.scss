@@ -5,13 +5,17 @@
 
 .main__list-item {
    margin-bottom: 30px;
+   min-height: 250px;
 }
 
 .card {
    padding: 15px;
    border-radius: 10px;
-   border: 2px solid rgb(0, 0, 0);
+   // border: 2px solid rgb(0, 0, 0);
    height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
 }
 
 .main__list-img {
@@ -19,7 +23,7 @@
    justify-content: center;
    align-items: center;
    margin: 0 auto 10px;
-   width: 100px;
+   width: 60%;
 }
 
 .main__list-title {

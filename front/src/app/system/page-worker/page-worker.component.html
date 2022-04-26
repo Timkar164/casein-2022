@@ -1,0 +1,50 @@
+<section class="worker">
+   <div class="container">
+      <div class="worker__wrapper">
+         <h1 class="worker__hello">
+            Привет, пользователь!
+         </h1>
+
+         <div class="worker__top">
+            <div class="worker__top-item">
+               <h3 class="worker__top-title">{{machine}} </h3>
+               <p class="worker__top-text">закрепленная за вами техника</p>
+            </div>
+            <div class="worker__top-item">
+               <h3 class="worker__top-title">{{numberTasks}} задач</h3>
+               <p class="worker__top-text">{{notFinishedTasks}} незаконченных</p>
+            </div>
+            <div class="worker__top-item">
+               <h3 class="worker__top-title">{{workClock}} дней</h3>
+               <p class="worker__top-text">ваши рабочие часы</p>
+            </div>
+         </div>
+
+         <div class="worker__main-content">
+
+            <div class="worker__main-top">
+               <div class="worker__main-top--item">
+                  <app-completed-tasks></app-completed-tasks>
+               </div>
+               <div class="worker__main-top--item">
+                  <app-info-chart></app-info-chart>
+               </div>
+               <div class="worker__main-top--item">
+                  <app-calendar></app-calendar>
+               </div>
+            </div>
+
+            <div class="worker__main-center">
+               <div class="worker__main-center--item">
+                  <app-members [members]="members"></app-members>
+               </div>
+               <div class="worker__main-center--item">
+                  <app-tasks [numberTasks]="numberTasks" [notFinishedTasks]="notFinishedTasks" [tasks]="tasks">
+                  </app-tasks>
+               </div>
+            </div>
+         </div>
+
+      </div>
+   </div>
+</section>

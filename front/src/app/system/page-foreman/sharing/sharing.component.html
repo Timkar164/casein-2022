@@ -1,0 +1,11 @@
+<div class="sharing">
+   <h2 class="sharing__title">Шеринг</h2>
+
+   <ul class="sharing__list">
+      <li class="sharing__list-item" *ngFor="let shItem of sharingList">
+         <img src="{{shItem.img}}" alt="" class="sharing__list-img">
+         <p class="sharing__list-name">{{shItem.name}}</p>
+         <p class="sharing__list-state">{{shItem.state}}</p>
+      </li>
+   </ul>
+</div>

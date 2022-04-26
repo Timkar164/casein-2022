@@ -1,0 +1,77 @@
+.foreman__hello {
+   font-size: 36px;
+   line-height: 42px;
+   color: #ffffff;
+   margin-bottom: 20px;
+}
+
+.foreman__top {
+   display: flex;
+   width: 100%;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 30px;
+}
+
+.foreman__top-item {
+   max-width: 30%;
+   width: 100%;
+   padding: 20px 40px;
+   background: rgba(87, 71, 125, 0.28);
+   margin-bottom: 10px;
+}
+
+.foreman__top-title {
+   font-size: 32px;
+   line-height: 38px;
+}
+
+.foreman__top-text {
+   font-size: 16px;
+   line-height: 19px;
+}
+
+.foreman__main-content {
+   width: 100%;
+   margin-bottom: 40px;
+}
+
+.foreman__main-top,
+.foreman__main-center,
+.foreman__main-bottom {
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 30px;
+}
+
+.foreman__main-top--item,
+.foreman__main-center--item {
+   margin-bottom: 10px;
+}
+
+.foreman__main-top--item {
+   &:nth-child(1) {
+      width: 45%;
+      padding-right: 20px;
+   }
+   &:nth-child(2) {
+      width: 55%;
+      padding-left: 20px;
+   }
+}
+
+.foreman__main-center--item {
+   &:nth-child(1) {
+      width: 26%;
+      padding-right: 20px;
+   }
+   &:nth-child(2) {
+      width: 75%;
+      padding-left: 20px;
+   }
+}
+
+.foreman__main-bottom {
+   margin-bottom: 40px;
+}

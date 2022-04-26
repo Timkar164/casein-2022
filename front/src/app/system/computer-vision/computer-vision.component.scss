@@ -1,0 +1,303 @@
+.link_main {
+   color: #fff;
+   font-size: 36px;
+   margin: auto 15px;
+}
+.header {
+   max-width: 100%;
+   margin: 30px 0px;
+   padding: 0 30px;
+   display: flex;
+   justify-content: space-between;
+}
+.lc_img {
+   max-width: 60px;
+   max-height: 60px;
+   margin: 0 15px;
+   cursor: pointer;
+}
+.small_imgs {
+   margin: 0 15px;
+   display: flex;
+   align-items: center;
+}
+.logo_ {
+   margin-right: 10px;
+   width: 30%;
+   max-width: 500px;
+}
+.main_screen {
+   display: flex;
+
+   justify-content: space-around;
+}
+.menu,
+.webcam_static {
+   display: flex;
+   flex-direction: column;
+}
+.main_info,
+.setter {
+   display: flex;
+   align-items: center;
+}
+.menu {
+   width: 320px;
+   margin-right: 40px;
+}
+.param_txt {
+   text-align: center;
+   margin: 0 0 20px;
+   font-size: 36px;
+   opacity: 50%;
+   line-height: 100%;
+}
+.param,
+.statistic {
+   display: flex;
+   flex-direction: column;
+   background-color: rgba(87, 71, 125, 0.28);
+   margin-bottom: 40px;
+}
+.setter {
+   font-size: 30px;
+}
+.optional {
+   display: flex;
+   justify-content: space-between;
+   margin: 0 0 40px;
+   align-items: center;
+}
+.setter_ {
+   margin: 0 20px 40px;
+   align-items: center;
+   justify-content: start;
+   cursor: pointer;
+}
+.setter_ p {
+   margin: auto 0;
+}
+.optional img,
+.statistic img {
+   margin-right: 15px;
+   width: 40px;
+   height: 40px;
+   position: relative;
+   top: 4px;
+}
+.statistic,
+.param {
+   padding: 20px;
+}
+.checkbox-ios {
+   display: inline-block;
+   height: 28px;
+   line-height: 28px;
+   margin-right: 10px;
+   position: relative;
+   vertical-align: middle;
+   font-size: 14px;
+   user-select: none;
+}
+.checkbox-ios .checkbox-ios-switch {
+   position: relative;
+   display: inline-block;
+   box-sizing: border-box;
+   width: 56px;
+   height: 28px;
+   border: 1px solid rgba(0, 0, 0, 0.1);
+   border-radius: 25%/50%;
+   vertical-align: top;
+   background: #eee;
+   transition: 0.2s;
+}
+.checkbox-ios .checkbox-ios-switch:before {
+   content: "";
+   position: absolute;
+   top: 1px;
+   left: 1px;
+   display: inline-block;
+   width: 24px;
+   height: 24px;
+   border-radius: 50%;
+   background: #00d4e5;
+   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+   transition: 0.15s;
+}
+.checkbox-ios input[type="checkbox"] {
+   display: block;
+   width: 0;
+   height: 0;
+   position: absolute;
+   z-index: -1;
+   opacity: 0;
+}
+.checkbox-ios input[type="checkbox"]:not(:disabled):active + .checkbox-ios-switch:before {
+   box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3);
+}
+.checkbox-ios input[type="checkbox"]:checked + .checkbox-ios-switch {
+   background: #ffffff;
+}
+.checkbox-ios input[type="checkbox"]:checked + .checkbox-ios-switch:before {
+   transform: translateX(28px);
+}
+
+/* Hover */
+.checkbox-ios input[type="checkbox"]:not(:disabled) + .checkbox-ios-switch {
+   cursor: pointer;
+   border-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Disabled */
+.checkbox-ios input[type="checkbox"]:disabled + .checkbox-ios-switch {
+   filter: grayscale(70%);
+   border-color: rgba(0, 0, 0, 0.1);
+   display: none;
+}
+.checkbox-ios input[type="checkbox"]:disabled + .checkbox-ios-switch:before {
+   background: #eee;
+   display: none;
+}
+
+/* Focus */
+.checkbox-ios.focused .checkbox-ios-switch:before {
+   box-shadow: inset 0px 0px 4px #ff5623;
+   display: none;
+}
+.main_info {
+   align-items: initial;
+}
+.webcam_static {
+   width: 70%;
+}
+.broadcast {
+   width: 100%;
+   margin: 0 auto 40px;
+}
+.webcam_broadcast {
+}
+.values,
+.statistic_info {
+   max-width: 50%;
+   padding: 20px;
+}
+.statistic_info {
+   margin-left: 40px;
+}
+.info {
+   text-align: center;
+}
+
+@media (max-width: 1260px) {
+   .main_screen {
+      flex-wrap: wrap;
+   }
+   .webcam_static {
+      width: auto;
+   }
+   .webcam_broadcast {
+      margin: 0 auto 20px;
+   }
+   .webcam_static {
+      width: 90%;
+   }
+   .menu {
+      flex-direction: row;
+      margin-bottom: 40px;
+      width: auto;
+      margin-right: 0;
+   }
+   .param,
+   .statistic {
+      margin: 0 20px;
+   }
+   .setter {
+      margin-right: 15px;
+   }
+   .info {
+      font-size: 20px;
+   }
+}
+@media (max-width: 1024px) {
+   .lc_img {
+      width: 30px;
+      height: 30px;
+   }
+   .link_main {
+      font-size: 28px;
+   }
+   .clast_ {
+      width: 150px;
+      font-size: 20px;
+   }
+}
+
+@media (max-width: 768px) {
+   .logo_ {
+      display: none;
+   }
+   .lc_img {
+      width: 40px;
+      height: 40px;
+   }
+   .link_main {
+      font-size: 36px;
+   }
+   .header {
+      justify-content: space-around;
+   }
+   .forward_clast {
+      flex-direction: column;
+   }
+   .forward_clast p {
+      margin-bottom: 30px;
+   }
+   .analisys {
+      font-size: 28px;
+   }
+   .graphics_ {
+      flex-direction: column;
+   }
+   .graph_1 {
+      margin-right: 0;
+   }
+   .clast_ {
+      line-height: 100%;
+   }
+   .main_info {
+      flex-direction: column;
+   }
+   .values {
+      margin-bottom: 30px;
+   }
+   .menu {
+      margin: 0;
+   }
+   .values,
+   .statistic_info {
+      margin: 40px 0;
+   }
+   .menu {
+      flex-direction: column;
+   }
+   .param,
+   .statistic {
+      margin: 0 auto 20px;
+      width: 100%;
+      max-width: 100%;
+   }
+}
+
+@media (max-width: 380px) {
+   .logo_ {
+      display: none;
+   }
+   .lc_img {
+      width: 30px;
+      height: 30px;
+      margin: 0 10px;
+   }
+   .link_main {
+      font-size: 30px;
+   }
+}

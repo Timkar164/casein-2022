@@ -1,0 +1,48 @@
+.workers {
+   width: 100%;
+   background: rgba(87, 71, 125, 0.28);
+   padding: 15px 20px;
+}
+
+.workers__title {
+   font-size: 32px;
+   line-height: 38px;
+   letter-spacing: 1px;
+   margin-bottom: 20px;
+}
+
+.workers__list {
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+}
+
+.workers__list-item {
+   display: flex;
+   align-items: center;
+   padding: 10px 0;
+   & + .workers__list-item {
+      border-top: 1px solid #2d2442;
+   }
+}
+
+.workers__list-img {
+   max-width: 40px;
+   margin-right: 20px;
+}
+
+.workers__list-info {
+   display: flex;
+   flex-direction: column;
+}
+
+.workers__list-name,
+.workers__list-post {
+   font-size: 15px;
+   line-height: 18px;
+   font-weight: bold;
+}
+
+.workers__list-name {
+   margin-bottom: 10px;
+}

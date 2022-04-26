@@ -1,0 +1,18 @@
+<div class="tasks">
+   <h2 class="tasks__title"> Задачи</h2>
+
+   <div class="tasks__top">
+      всего {{numberTasks}} задач, незаконченных - {{notFinishedTasks}}
+   </div>
+
+   <ul class="tasks__main">
+      <li class="tasks__main-item" *ngFor="let task of tasks">
+         <img src="{{task.img}}" alt="" class="tasks__main-point">
+         <div class="tasks__main-info">
+            <p class="tasks__main-date">{{task.date}}</p>
+            <p class="tasks__main-text">{{task.text}}</p>
+         </div>
+      </li>
+   </ul>
+
+</div>

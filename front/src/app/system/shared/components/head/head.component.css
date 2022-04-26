@@ -17,11 +17,13 @@
     margin-right: 10px;
 }
 
-.header__lk {
-    max-height: 100px;
-    
+.header__links {
+    display: flex;
+    align-items: center;
 }
 
-.header__lk svg {
-    max-height: 50px;
+.header__lk,
+.header__notifications,
+.header__settings {
+    padding: 0 20px;
 }

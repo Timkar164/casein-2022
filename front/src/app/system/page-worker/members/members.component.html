@@ -1,0 +1,13 @@
+<div class="members">
+   <h2 class="members__title">Список рабочих</h2>
+
+   <ul class="members__list">
+      <div class="members__list-item" *ngFor="let member of members">
+         <img src="{{member.img}}" alt="" class="members__list-img">
+         <div class="members__list-info">
+            <p class="members__list-name">{{member.name}}</p>
+            <p class="members__list-post">{{member.post}}</p>
+         </div>
+      </div>
+   </ul>
+</div>

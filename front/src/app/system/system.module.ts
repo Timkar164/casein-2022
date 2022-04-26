@@ -27,6 +27,21 @@ import { PolarChartOneComponent } from './polar-chart-one/polar-chart-one.compon
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 import { StreamPageComponent } from './stream-page/stream-page.component';
 import { ObjectdetectionComponent } from './objectdetection/objectdetection.component';
+import { PageForemanComponent } from './page-foreman/page-foreman.component';
+import { PageWorkerComponent } from './page-worker/page-worker.component';
+import { ExecutionControlComponent } from './page-foreman/execution-control/execution-control.component';
+import { VehicleControlComponent } from './page-foreman/vehicle-control/vehicle-control.component';
+import { ListWorkersComponent } from './page-foreman/list-workers/list-workers.component';
+import { EquipmentEmployeeComponent } from './page-foreman/equipment-employee/equipment-employee.component';
+import { SharingComponent } from './page-foreman/sharing/sharing.component';
+import { ComputerVisionComponent } from './computer-vision/computer-vision.component';
+import { AuthModule } from '../auth/auth.module';
+import { BarChartThreeComponent } from './bar-chart-three/bar-chart-three.component';
+import { CompletedTasksComponent } from './page-worker/completed-tasks/completed-tasks.component';
+import { InfoChartComponent } from './page-worker/info-chart/info-chart.component';
+import { CalendarComponent } from './page-worker/calendar/calendar.component';
+import { MembersComponent } from './page-worker/members/members.component';
+import { TasksComponent } from './page-worker/tasks/tasks.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +67,20 @@ import { ObjectdetectionComponent } from './objectdetection/objectdetection.comp
     DashboardPageComponent,
     StreamPageComponent,
     ObjectdetectionComponent,
+    PageForemanComponent,
+    PageWorkerComponent,
+    ExecutionControlComponent,
+    VehicleControlComponent,
+    ListWorkersComponent,
+    EquipmentEmployeeComponent,
+    SharingComponent,
+    ComputerVisionComponent,
+    BarChartThreeComponent,
+    CompletedTasksComponent,
+    InfoChartComponent,
+    CalendarComponent,
+    MembersComponent,
+    TasksComponent,
   ],
   imports: [
     SystemRoutingModule,
@@ -61,6 +90,7 @@ import { ObjectdetectionComponent } from './objectdetection/objectdetection.comp
     FormsModule,
     BrowserModule,
     NgChartsModule,
+    AuthModule
   ],
   bootstrap: [SystemComponent]
 })

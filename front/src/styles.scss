@@ -4,6 +4,8 @@ html {
    box-sizing: border-box;
    height: 100%;
    overflow-x: hidden;
+   scrollbar-color: #00d4e5 #2d2442;
+   scrollbar-width: thin;
 }
 
 *,
@@ -12,6 +14,7 @@ html {
    -webkit-box-sizing: border-box;
    -moz-box-sizing: border-box;
    box-sizing: border-box;
+   scrollbar-width: thin;
 }
 
 ul[class],
@@ -56,11 +59,14 @@ select {
 }
 
 a {
-   color: #000000;
+   color: #ffffff;
    text-decoration: none;
-   :hover {
-      color: #253469;
-   }
+}
+
+app-regin,
+app-login {
+   width: 100%;
+   display: block;
 }
 
 body {
@@ -71,7 +77,8 @@ body {
    line-height: 130%;
    margin: 0px;
    padding: 0px;
-   background: #0f051c;
+   background: #2d2442;
+   color: #ffffff;
 }
 
 .container {
@@ -92,11 +99,11 @@ body {
    font-family: "Merriweather", serif;
    font-weight: 400;
    font-size: 40px;
-   color: #212121;
+   color: #ffffff;
 }
 
 .my_link {
-   background: rgba(207, 237, 244, 0.59);
+   background: rgba(87, 71, 125, 0.28);
    border-radius: 40px;
    padding: 15px;
    font-weight: 400;
@@ -104,7 +111,7 @@ body {
    color: #ffffff;
    cursor: pointer;
    :hover {
-      color: #253469;
+      color: #7e818c;
    }
 }
 
@@ -119,16 +126,14 @@ body {
    display: block;
    margin: 0 auto;
    text-align: center;
-   border-radius: 15px;
+   border-radius: 20px;
    padding: 5px 15px;
-   box-shadow: 0 0 5px #00d4e5;
    cursor: pointer;
 }
 
 .dashboard__list .row {
    justify-content: space-around;
 }
-
 
 // ///////////////////////////////////////////////////////////////////
 

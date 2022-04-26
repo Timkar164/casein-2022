@@ -1,0 +1,53 @@
+<section class="foreman">
+   <div class="container">
+      <div class="foreman__wrapper">
+         <h1 class="foreman__hello">
+            Привет, пользователь!
+         </h1>
+
+         <div class="foreman__top">
+            <div class="foreman__top-item">
+               <h3 class="foreman__top-title">{{message}} сообщений</h3>
+               <p class="foreman__top-text">{{unreadMessage}} непрочитанных</p>
+            </div>
+            <div class="foreman__top-item">
+               <h3 class="foreman__top-title">{{tasks}} задач</h3>
+               <p class="foreman__top-text">{{notFinishedTasks}} незаконченных</p>
+            </div>
+            <div class="foreman__top-item">
+               <h3 class="foreman__top-title">{{DeadLinedays}} дней</h3>
+               <p class="foreman__top-text">до сдачи ближайшей задачи</p>
+            </div>
+         </div>
+
+         <div class="foreman__main-content">
+
+            <div class="foreman__main-top">
+               <div class="foreman__main-top--item">
+                  <app-execution-control></app-execution-control>
+               </div>
+               <div class="foreman__main-top--item">
+                  <app-vehicle-control [technics]="technics" (onRemoveTechnics)="handleRemoveTechnics($event)">
+                  </app-vehicle-control>
+               </div>
+            </div>
+
+            <div class="foreman__main-center">
+               <div class="foreman__main-center--item">
+                  <app-list-workers [workers]="workers"></app-list-workers>
+               </div>
+               <div class="foreman__main-center--item">
+                  <app-equipment-employee [equipments]="equipments"
+                     (onRemoveEquipments)="handleRemoveEquipments($event)" (onAddEquipments)="handleAddEquipments($event)" (onCnageEquipments)="handleChangeEquipments($event)"></app-equipment-employee>
+               </div>
+            </div>
+
+            <div class="foreman__main-bottom">
+               <app-sharing style="overflow: hidden !important;"></app-sharing>
+            </div>
+
+         </div>
+
+      </div>
+   </div>
+</section>

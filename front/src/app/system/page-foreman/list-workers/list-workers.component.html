@@ -1,0 +1,13 @@
+<div class="workers">
+   <h2 class="workers__title">Список рабочих</h2>
+
+   <ul class="workers__list">
+      <div class="workers__list-item" *ngFor="let worker of workers">
+         <img src="{{worker.img}}" alt="" class="workers__list-img">
+         <div class="workers__list-info">
+            <p class="workers__list-name">{{worker.name}}</p>
+            <p class="workers__list-post">{{worker.post}}</p>
+         </div>
+      </div>
+   </ul>
+</div>
