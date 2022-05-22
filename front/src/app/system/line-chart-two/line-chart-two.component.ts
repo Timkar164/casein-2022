@@ -10,11 +10,12 @@ import {API} from "../../../../enveriment";
   styleUrls: ['./line-chart-two.component.scss']
 })
 export class LineChartTwoComponent implements OnInit{
-  public dataID = '01.06.2021';
+  public user_id = localStorage.getItem("user");
+  public dataID = localStorage.getItem('dataID') || '01.06.2021';
   public datas = [];
   public data: any;
   public columns = [];
-  public column = 'Пробег, км';
+  public column = localStorage.getItem('column2') || 'Пробег, км';
   constructor(private httpService: HttpClient) { }
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [],
@@ -29,13 +30,13 @@ export class LineChartTwoComponent implements OnInit{
 
   }
   get_id_column(){
-    this.httpService.get(API+'getdays').subscribe(value => {
+    this.httpService.get(API+'getdays'+ '?userId=' + this.user_id).subscribe(value => {
 
       this.data = value;
       this.datas = this.data.items;
 
     })
-    this.httpService.get(API+'getcolum').subscribe(value => {
+    this.httpService.get(API+'getcolum'+ '?userId=' + this.user_id).subscribe(value => {
 
       this.data = value;
       this.columns = this.data.items;
@@ -43,7 +44,7 @@ export class LineChartTwoComponent implements OnInit{
     })
   }
   get_data_by_id(id:any,label:any){
-    this.httpService.get(API+'getdata?data='+this.dataID + '&label='+this.column).subscribe(value => {
+    this.httpService.get(API+'getdata?data='+this.dataID + '&label='+this.column+ '&userId=' + this.user_id).subscribe(value => {
       this.data = value;
       this.lineChartData.datasets = [];
 
@@ -64,6 +65,8 @@ export class LineChartTwoComponent implements OnInit{
       }
       this.lineChartData.labels = this.data.time;
       this.chart?.update();
+      localStorage.setItem('dataID', this.dataID);
+      localStorage.setItem('column2', this.column);
     })
   }
 

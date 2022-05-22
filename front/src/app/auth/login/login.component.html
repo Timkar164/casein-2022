@@ -7,9 +7,9 @@
          <div class="form_auth_block_content">
             <p class="form_auth_block_head_text">Вход</p>
             <form class="form_auth_style" action="#" method="post">
-               <input type="email" class="input_form" name="auth_email" placeholder="Почта" required [(ngModel)]="login">
+               <input type="email" class="input_form" name="auth_email" placeholder="Почта: admin@mail.ru" required [(ngModel)]="login">
 
-               <input type="password" class="input_form" name="auth_pass" placeholder="Пароль" required [(ngModel)]="pas">
+               <input type="password" class="input_form" name="auth_pass" placeholder="Пароль: qwerty123" required [(ngModel)]="pas">
                <div class="block_btn">
                   <button class="form_auth_button" type="submit" name="form_auth_submit" (click)="auth()">Войти</button>
                </div>

@@ -6,7 +6,6 @@ Created on Sat Apr 10 14:56:15 2021
 """
 import psycopg2
 from psycopg2.extras import DictCursor , RealDictCursor
-from flask import Flask , render_template ,request
 from psycopg2.errors import UndefinedColumn
 import time
 

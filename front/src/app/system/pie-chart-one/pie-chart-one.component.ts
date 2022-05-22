@@ -11,6 +11,7 @@ import {API} from "../../../../enveriment";
   styleUrls: ['./pie-chart-one.component.scss']
 })
 export class PieChartOneComponent implements OnInit{
+  public user_id = localStorage.getItem("user");
   public data:any;
   public lastdata:any;
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
@@ -23,7 +24,7 @@ export class PieChartOneComponent implements OnInit{
   }
 
   getdata(){
-    this.httpService.get(API+'getclusterinfo').subscribe(value => {
+    this.httpService.get(API+'getclusterinfo'+ '?userId=' + this.user_id).subscribe(value => {
       this.data=value;
       if(this.lastdata!=this.data.time[this.data.time.length-1]){
         this.pieChartData.labels=this.data.time;

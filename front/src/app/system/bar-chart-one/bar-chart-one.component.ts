@@ -22,7 +22,10 @@ export class BarChartOneComponent implements OnInit{
     this.numbers = []
 
   }
+  public user_id = localStorage.getItem("user");
   public data: any;
+  public lastLabels:any = [];
+  public lastTime:any = [];
   public columns = [];
   public column = 'Пробег, км';
   public clusterID = 'Все';
@@ -61,7 +64,7 @@ export class BarChartOneComponent implements OnInit{
     setInterval(() => {
       this.buildArr()
     }, 1000);
-    this.httpService.get(API+'getcolum').subscribe(value => {
+    this.httpService.get(API+'getcolum'+ '?userId=' + this.user_id).subscribe(value => {
       this.data = value;
       this.columns = this.data.items;
 
@@ -69,11 +72,15 @@ export class BarChartOneComponent implements OnInit{
     this.get_data_by_id(this.funcID,this.clusterID,this.column);
   }
   get_data_by_id(func:string,cluster:string,colum:string){
-    this.httpService.get(API+'getinfoagr?func='+func+'&cluster='+cluster+'&colum='+ colum).subscribe(value => {
+    this.httpService.get(API+'getinfoagr?func='+func+'&cluster='+cluster+'&colum='+ colum + '&userId=' + this.user_id).subscribe(value => {
       this.data=value;
+      if((JSON.stringify(this.lastLabels)!=JSON.stringify(this.data.items.time))||(JSON.stringify(this.lastTime)!=JSON.stringify(this.data.items.label))){
       this.barChartData.labels = this.data.items.time;
       this.barChartData.datasets = [{data:this.data.items.label,label:colum}];
       this.chart?.update();
+      this.lastLabels=this.data.items.time;
+      this.lastTime=this.data.items.label;
+      }
     })
   }
   // events
@@ -93,6 +100,7 @@ export class BarChartOneComponent implements OnInit{
      i++;
    }
    this.numbers.push(('Все'));
+   this.get_data_by_id(this.funcID,this.clusterID,this.column);
  }
 
 }

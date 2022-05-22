@@ -5,8 +5,7 @@
       <li class="sharing__list-item" *ngFor="let shItem of sharingList">
          <img src="../../../../assets/img/sharing__bg.png" alt="" class="sharing__list-img" (click)="getsharing(shItem)">
          <p class="sharing__list-name" (click)="getsharing(shItem)">{{shItem.name}}</p>
-         <p class="sharing__list-state" (click)="getsharing(shItem)" *ngIf="shItem.stat=='в простое'">Можно сдать</p>
-        <p class="sharing__list-state" (click)="getsharing(shItem)" *ngIf="shItem.stat=='в аренде'">Уже сдано</p>
+         <p class="sharing__list-state" (click)="getsharing(shItem)">{{shItem.stat}}</p>
       </li>
    </ul>
 </div>

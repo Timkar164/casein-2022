@@ -1,8 +1,11 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {AppService} from "../../../app.service";
-import validate = WebAssembly.validate;
 
-
+export interface SharingItem {
+  img: String;
+  name: String;
+  stat: String;
+}
 
 @Component({
   selector: 'app-sharing',
@@ -11,34 +14,18 @@ import validate = WebAssembly.validate;
 })
 export class SharingComponent implements OnInit {
   public req1:any;
-  public sharingList:any = []
-  constructor(private servise: AppService,private changeDetection: ChangeDetectorRef) { }
+  constructor(private servise: AppService) { }
 
   ngOnInit(): void {
-this.update()
+    this.servise.getshering().subscribe(value => {
+      this.req1=value;
+      this.sharingList=this.req1.items;
+    })
   }
-  async getsharing(tech:any){
-    if(tech.stat=='в простое'){
-     await this.servise.changeshering(tech.id,'в аренде').subscribe(value => {
-       console.log(value)
-     })
-    }
-    if(tech.stat=='в аренде'){
-      await this.servise.changeshering(tech.id,'в простое').subscribe(value => {
-        console.log(value)
-      })
-    }
-    await this.update();
-    this.changeDetection.detectChanges();
-
+  getsharing(tech:any){
+    console.log(tech.id)
   }
- update(){
-   this.servise.getshering().subscribe(value => {
-     this.req1=value;
-     this.sharingList=this.req1.items;
-     console.log(this.sharingList);
-     this.changeDetection.detectChanges();
-   })
- }
+  sharingList: SharingItem[] = [
 
+  ]
 }

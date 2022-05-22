@@ -57,12 +57,12 @@ export class EquipmentEmployeeComponent implements OnInit {
     element.change = !element.change;
   }
 
-  async update() {
-    await this.servise.getallusers().subscribe(value => {
+  update() {
+    this.servise.getallusers().subscribe(value => {
       this.pipls = value;
       this.flag1 = true;
     })
-    await this.servise.getalltech().subscribe(value => {
+    this.servise.getalltech().subscribe(value => {
       this.techs = value;
       this.flag2 = true;
     })

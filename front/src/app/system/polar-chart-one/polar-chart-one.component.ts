@@ -20,11 +20,11 @@ export class PolarChartOneComponent implements OnInit{
     datasets: []
   };
   public polarAreaLegend = true;
-
+  public user_id = localStorage.getItem("user");
   public polarAreaChartType: ChartType = 'polarArea';
   constructor(private httpService: HttpClient) {
   }  ngOnInit(): void {
-    this.httpService.get(API+'getclusterinfo').subscribe(value => {
+    this.httpService.get(API+'getclusterinfo'+ '?userId=' + this.user_id).subscribe(value => {
       this.data=value;
       this.polarAreaChartData.labels=this.data.time;
       this.polarAreaChartData.datasets=[];

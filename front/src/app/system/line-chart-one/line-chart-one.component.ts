@@ -12,11 +12,12 @@ import {Router} from "@angular/router";
   styleUrls: ['./line-chart-one.component.scss']
 })
 export class LineChartOneComponent implements OnInit {
-  public techID = '734';
+  public user_id = localStorage.getItem("user");
+  public techID = localStorage.getItem('techID') || '734';
   public techs = [];
   public data: any;
   public columns = [];
-  public column = 'Пробег, км';
+  public column = localStorage.getItem('column1') || 'Пробег, км';
   constructor(private httpService: HttpClient) { }
    ngOnInit(): void {
      this.get_data_by_id(734,'Пробег, км');
@@ -27,19 +28,19 @@ export class LineChartOneComponent implements OnInit {
 
   }
   get_id_column(){
-    this.httpService.get(API+'gettech').subscribe(value => {
+    this.httpService.get(API+'gettech'+ '?userId=' + this.user_id).subscribe(value => {
       this.data = value;
       this.techs = this.data.items;
 
     })
-    this.httpService.get(API+'getcolum').subscribe(value => {
+    this.httpService.get(API+'getcolum'+ '?userId=' + this.user_id).subscribe(value => {
       this.data = value;
       this.columns = this.data.items;
 
     })
   }
   get_data_by_id(id:any,label:any){
-    this.httpService.get(API+'getinfo?id='+this.techID + '&label='+this.column).subscribe(value => {
+    this.httpService.get(API+'getinfo?id='+this.techID + '&label='+this.column+ '&userId=' + this.user_id).subscribe(value => {
       this.data = value;
       this.lineChartData.datasets = [];
 
@@ -60,6 +61,8 @@ export class LineChartOneComponent implements OnInit {
       }
       this.lineChartData.labels = this.data.time;
       this.chart?.update();
+      localStorage.setItem('techID', this.techID);
+      localStorage.setItem('column1', this.column);
     })
   }
 

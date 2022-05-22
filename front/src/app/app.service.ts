@@ -58,9 +58,4 @@ export class AppService {
      const req = this.http.get(API+'getshering');
      return req
    }
-   changeshering(id:any,stat:any){
-     const req = this.http.get(API+'changeshering?id='+id+'&stat='+stat);
-     return req
-   }
-
 }

@@ -42,6 +42,7 @@ import { InfoChartComponent } from './page-worker/info-chart/info-chart.componen
 import { CalendarComponent } from './page-worker/calendar/calendar.component';
 import { MembersComponent } from './page-worker/members/members.component';
 import { TasksComponent } from './page-worker/tasks/tasks.component';
+import { BimComponent } from './bim/bim.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { TasksComponent } from './page-worker/tasks/tasks.component';
     CalendarComponent,
     MembersComponent,
     TasksComponent,
+    BimComponent,
   ],
   imports: [
     SystemRoutingModule,

@@ -12,33 +12,30 @@ import { AppService } from "../../app.service";
 })
 export class PageForemanComponent implements OnInit {
   public req: any;
-  public req2: any;
-  public req3: any;
-  public 5: any;
   public info: any;
   constructor(private router: Router, private service: AppService) { }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     if (localStorage.getItem('type') !== '1') {
       localStorage.clear();
       this.router.navigate(['auth'])
     }
-    await this.service.getworker().subscribe(value => {
+    this.service.getworker().subscribe(value => {
       console.log(value);
       this.req = value;
       this.workers = this.req.items
     })
-    await this.service.gettech().subscribe(value => {
+    this.service.gettech().subscribe(value => {
       console.log(value);
-      this.req2 = value;
-      this.technics = this.req2.items
+      this.req = value;
+      this.technics = this.req.items
     })
-    await this.service.gettask().subscribe(value => {
+    this.service.gettask().subscribe(value => {
       console.log(value);
-      this.req3 = value;
-      this.equipments = this.req3.items
+      this.req = value;
+      this.equipments = this.req.items
     })
-    await this.service.getadminfo().subscribe(value => {
+    this.service.getadminfo().subscribe(value => {
       this.info = value;
       this.tasks = this.info.all;
       this.notFinishedTasks = this.info.open;

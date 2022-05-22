@@ -12,7 +12,6 @@ import {AppService} from "../../app.service";
 export class PageWorkerComponent implements OnInit {
   public req:any;
   public name ='';
-  public techname ='-';
   constructor(private router: Router,private servise:AppService) { }
 
   ngOnInit(): void {
@@ -29,7 +28,6 @@ export class PageWorkerComponent implements OnInit {
       this.workClock=this.req.timer;
       this.members = this.req.users;
       this.name = this.req.name;
-      this.techname = this.req.techname
     })
   }
 

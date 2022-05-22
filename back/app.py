@@ -13,6 +13,8 @@ from flask import Flask, flash, request, redirect
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 
+import datetime
+
 from ml.KmeenCluster import return_cluster_model
 
 CLUSTER_N = 4
@@ -20,6 +22,17 @@ LASTFILE = 'Prilozhenie_k_keysu_data.xls'
 
 USER_TO_FILE = json.load(open("user_to_file.json", "r"))
 USERS = json.load(open("users.json", "r"))
+
+
+def try_to_normal(dtf):
+    for column_name in dtf:
+        column = dtf[column_name]
+
+        for i in range(len(column)):
+            if column[i] == "" or column[i] == None:
+                column[i] = "0"
+
+    return dtf
 
 
 def get_valid_file(user_id):
@@ -151,7 +164,7 @@ app.config['UPLOAD_FOLDER'] = 'load'
 
 @app.route("/getoil", methods=["POST", "GET"])
 def get_oil_api():
-    user_id =1
+    user_id = 1
     df = get_valid_file(user_id)
     df = main_conv(df, 3600)
     df = df[df['id'] == 734]
@@ -172,7 +185,7 @@ def get_oil_api():
 
 @app.route("/getnowork", methods=["POST", "GET"])
 def get_no_work_api():
-    user_id=1
+    user_id = 1
     args = request.args
     if 'label' in args.keys():
         return get_no_work(user_id, label=args['label'])
@@ -182,7 +195,7 @@ def get_no_work_api():
 
 @app.route("/getdata", methods=["POST", "GET"])
 def get_data_api():
-    user_id=1
+    user_id = 1
     args = request.args
     if 'label' in args.keys():
         return get_data_info(args['data'], user_id, label=args['label'])
@@ -192,7 +205,7 @@ def get_data_api():
 
 @app.route("/getinfo", methods=["POST", "GET"])
 def get_info_api():
-    user_id=1
+    user_id = 1
     args = request.args
     if 'label' in args.keys():
         return get_tech_info(args['id'], user_id, label=args['label'])
@@ -203,39 +216,47 @@ def get_info_api():
 
 @app.route("/getcolum", methods=["POST", "GET"])
 def get_columns_api():
-    user_id=1
+    user_id = 1
     df = get_valid_file(user_id)
     return {'items': list(df.columns) + ['Средняя скорость']}
 
 
 @app.route("/files", methods=["POST", "GET"])
 def index_file_api():
-    user_id=1
-    global n, k, t, LASTFILE
+    user_id = 1
+    global n, k, t
 
     if request.method == "POST":
         upload_files = request.files.getlist('fileUpload')
-        for file in upload_files:
-            if file.filename == '':
-                flash('No selected file')
-                return redirect(request.url)
 
-            if file:
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        try:
+            for i in range(len(upload_files)):
+                upload_files[i] = pd.DataFrame(upload_files[i])
 
-                USER_TO_FILE[str(user_id)] = filename
-                json.dump(USER_TO_FILE, open("db.json", "w", encoding="utf-8"), ensure_ascii=False)
+            for i in range(len(upload_files)):
+                upload_files[i] = try_to_normal(upload_files[i])
 
-                n, k, t = return_cluster_model(get_valid_file(user_id), int(CLUSTER_N))
-                print(filename)
+            file = pd.concat(upload_files)
+
+            filename = secure_filename(str(datetime.datetime.now().strftime("%y%m%d_%H%M%S")))
+
+            file.to_excel(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        except Exception as e:
+            return redirect(request.url)
+
+        if file:
+            USER_TO_FILE[str(user_id)] = filename
+            json.dump(USER_TO_FILE, open("db.json", "w", encoding="utf-8"), ensure_ascii=False)
+
+            n, k, t = return_cluster_model(get_valid_file(user_id), int(CLUSTER_N))
+            print(filename)
 
     return {'response': True}
 
 
 @app.route("/lenclusters", methods=["POST", "GET"])
 def cluster_api():
-    user_id=1
+    user_id = 1
     global CLUSTER_N, n, k, t
     if request.method == "GET":
         args = request.args
@@ -248,7 +269,7 @@ def cluster_api():
 
 @app.route("/gettech", methods=["POST", "GET"])
 def tech_api():
-    user_id=1
+    user_id = 1
     if request.method == "GET":
         df = get_valid_file(user_id)
         res = list(df['id'].unique())
@@ -261,7 +282,7 @@ def tech_api():
 
 @app.route("/getdays", methods=["POST", "GET"])
 def data_api():
-    user_id=1
+    user_id = 1
     if request.method == "GET":
         print('/--')
 
@@ -283,7 +304,7 @@ r = ''
 
 @app.route("/getinfoagr", methods=["POST", "GET"])
 def get_info_agr():
-    user_id=1
+    user_id = 1
     global funcs, CLUSTER_N, n, k, t
 
     func = funcs[str(request.args['func'])]
@@ -352,9 +373,9 @@ def get_clusters_id():
     res = []
     for i in range(len(k.labels_)):
         try:
-         res.append({'id': df[df['id']==int(t[i])]['Транспортное средство'].iloc[0], 'class': int(k.labels_[i])})
+            res.append({'id': df[df['id'] == int(t[i])]['Транспортное средство'].iloc[0], 'class': int(k.labels_[i])})
         except:
-         res.append({'id': int(t[i]), 'class': int(k.labels_[i])})
+            res.append({'id': int(t[i]), 'class': int(k.labels_[i])})
 
     return {'items': res, 'len': int(length)}
 
@@ -372,86 +393,104 @@ def auth_user_api():
     if request.method == "GET":
         email = request.args["email"]
         password = request.args["pas"]
-        user = sql.sql_select('users',{'login':email,'pas':password})['items']
+        user = sql.sql_select('users', {'login': email, 'pas': password})['items']
         if user:
-            return {"response":True,'user':user[0]['id'],'type':user[0]['type']}
+            return {"response": True, 'user': user[0]['id'], 'type': user[0]['type']}
         else:
-            return {'response:':False}
+            return {'response:': False}
 
 
 @app.route("/user", methods=["POST", "GET"])
 def user_api():
     if request.method == "POST":
         email, password = request.json["email"], request.json["pas"]
-        name , fname , oname, post = request.json["name"], request.json["fname"], request.json["oname"], request.json["post"]
-        user =sql.sql_select('users',{'login':email})['items']
+        name, fname, oname, post = request.json["name"], request.json["fname"], request.json["oname"], request.json[
+            "post"]
+        user = sql.sql_select('users', {'login': email})['items']
         if not user:
-         id_s = sql.sql_insert('users',{'login':email,'pas':password,'name':name,'fname':fname,'oname':oname,'type':'0','lastfile':'','post':post,'timer':'0'})
-         return {"response":True,'user':id_s['id'],'type':'0'}
+            id_s = sql.sql_insert('users',
+                                  {'login': email, 'pas': password, 'name': name, 'fname': fname, 'oname': oname,
+                                   'type': '0', 'lastfile': '', 'post': post, 'timer': '0'})
+            return {"response": True, 'user': id_s['id'], 'type': '0'}
         else:
-         return {'response:':False,'error':'user in database'}
-    return {'response:':False}
+            return {'response:': False, 'error': 'user in database'}
+    return {'response:': False}
+
 
 @app.route("/getworker", methods=["POST", "GET"])
 def getworker():
     if request.method == "GET":
-        users = sql.sql_select('users',{'type':'0'})['items']
+        users = sql.sql_select('users', {'type': '0'})['items']
         res = []
         for i in range(len(users)):
-            res.append({'img':'../../../../assets/img/workers__img.png','name': users[i]['fname']+' '+users[i]['name'],'post':users[i]['post']})
-        return {'response:':True,'items':res}
-    
-def findu(ids,users):
+            res.append(
+                {'img': '../../../../assets/img/workers__img.png', 'name': users[i]['fname'] + ' ' + users[i]['name'],
+                 'post': users[i]['post']})
+        return {'response:': True, 'items': res}
+
+
+def findu(ids, users):
     for i in users:
-        if str(ids)==str(i['id']):
-            return i['fname']+' '+i['name'][0]+'.'+i['oname'][0]+'.'
+        if str(ids) == str(i['id']):
+            return i['fname'] + ' ' + i['name'][0] + '.' + i['oname'][0] + '.'
     return '-'
+
+
 @app.route("/gettеch", methods=["POST", "GET"])
 def gettech():
     if request.method == "GET":
-        tech = sql.sql_select('tech',{})['items']
+        tech = sql.sql_select('tech', {})['items']
         u = []
         for i in tech:
-            if i['userid']!=None:
-             u.append(i['userid'])
+            if i['userid'] != None:
+                u.append(i['userid'])
         u = list(set(u))
-        users = sql.sql_select('users',{'id':u})['items']
+        users = sql.sql_select('users', {'id': u})['items']
         res = []
         for i in range(len(tech)):
-            res.append({'name':tech[i]['name'],'worker': findu(tech[i]['userid'],users),'state':tech[i]['stat']})
-        return {'response:':True,'items':res}
+            res.append({'name': tech[i]['name'], 'worker': findu(tech[i]['userid'], users), 'state': tech[i]['stat']})
+        return {'response:': True, 'items': res}
 
-def findt(ids,users):
+
+def findt(ids, users):
     for i in users:
-        if str(ids)==str(i['id']):
+        if str(ids) == str(i['id']):
             return i['name']
     return '-'
+
+
 @app.route("/gettask", methods=["POST", "GET"])
 def gettask():
     if request.method == "GET":
-        task = sql.sql_select('task',{})['items']
+        task = sql.sql_select('task', {})['items']
         u = []
         t = []
         for i in task:
-            if i['userid']!=None and i['userid']!='undefined':
-             u.append(i['userid'])
-            if i['techid']!=None and i['techid']!='undefined':
-             t.append(i['userid'])
+            if i['userid'] != None and i['userid'] != 'undefined':
+                u.append(i['userid'])
+            if i['techid'] != None and i['techid'] != 'undefined':
+                t.append(i['techid'])
         u = list(set(u))
         t = list(set(t))
-        users = sql.sql_select('users',{'id':u})['items']
-        techs = sql.sql_select('tech',{'id':t})['items']
+        users = sql.sql_select('users', {'id': u})['items']
+        techs = sql.sql_select('tech', {'id': t})['items']
         res = []
         for i in range(len(task)):
-            res.append({'id':task[i]['id'],'name':findt(task[i]['techid'],techs),'worker': findu(task[i]['userid'],users),'state':task[i]['stat'],'date':task[i]['date']})
-        return {'response:':True,'items':res}
-    
+            res.append({'id': task[i]['id'], 'name': findt(task[i]['techid'], techs),
+                        'worker': findu(task[i]['userid'], users), 'state': task[i]['stat'], 'date': task[i]['date']})
+        return {'response:': True, 'items': res}
+
+
 @app.route("/getusers", methods=["POST", "GET"])
 def getusers():
-    return sql.sql_select('users',{'type':'0'})
+    return sql.sql_select('users', {'type': '0'})
+
+
 @app.route("/gettechs", methods=["POST", "GET"])
 def gettechs():
-    return sql.sql_select('tech',{})
+    return sql.sql_select('tech', {})
+
+
 @app.route("/settask", methods=["POST", "GET"])
 def settask():
     if request.method == "GET":
@@ -459,58 +498,62 @@ def settask():
         tech = request.args["tech"]
         text = request.args["task"]
         data = request.args["date"]
-        return sql.sql_insert('task',{'userid':user,'techid':tech,'text':text,'date':data,'stat':'В работе'})
-    
+        return sql.sql_insert('task', {'userid': user, 'techid': tech, 'text': text, 'date': data, 'stat': 'В работе'})
+
+
 @app.route("/getadminf", methods=["POST", "GET"])
 def adminf():
     if request.method == "GET":
-      task = sql.sql_select('task',{})['items']
-      tclose = 0
-      for i in task:
-          if i['stat']=='Выполнено':
-              tclose+=1
-      return {'all':len(task),'open':len(task)-tclose}
-  
+        task = sql.sql_select('task', {})['items']
+        tclose = 0
+        for i in task:
+            if i['stat'] == 'Выполнено':
+                tclose += 1
+        return {'all': len(task), 'open': len(task) - tclose}
+
+
 @app.route("/changestattask", methods=["POST", "GET"])
 def changestattask():
     if request.method == "GET":
-      id_s = request.args['id']
-      sql.sql_update('task', {'id':id_s,'stat':'Выполнено'})
-      return {'response:':True}
-  
-    
+        id_s = request.args['id']
+        sql.sql_update('task', {'id': id_s, 'stat': 'Выполнено'})
+        return {'response:': True}
+
+
 @app.route("/wokerinfo", methods=["POST", "GET"])
 def wokerinfo():
     if request.method == "GET":
-      id_s = request.args['id']
-      user = sql.sql_select('users',{'id':str(id_s)})['items'][0]
-      users = sql.sql_select('users',{'type':'0'})['items']
-      tasks = sql.sql_select('task',{'userid':id_s})['items']
-      utech = sql.sql_select('tech',{'userid':id_s})['items']
-      if utech:
-          nametech = utech[0]['name']
-      else:
-          nametech='-'
-      notclose = 0
-      for i in tasks:
-          if i['stat']=='В работе':
-              notclose+=1
-      return {'task':tasks,'all':len(tasks),'notclose':notclose,'timer':user['timer'],'users':users,'name':user['name'],'techname':nametech}
-      
-  
+        id_s = request.args['id']
+        user = sql.sql_select('users', {'id': str(id_s)})['items'][0]
+        users = sql.sql_select('users', {'type': '0'})['items']
+        tasks = sql.sql_select('task', {'userid': id_s})['items']
+        utech = sql.sql_select('tech', {'userid': id_s})['items']
+        if utech:
+            nametech = utech[0]['name']
+        else:
+            nametech = '-'
+        notclose = 0
+        for i in tasks:
+            if i['stat'] == 'В работе':
+                notclose += 1
+        return {'task': tasks, 'all': len(tasks), 'notclose': notclose, 'timer': user['timer'], 'users': users,
+                'name': user['name'], 'techname': nametech}
+
+
 @app.route("/getshering", methods=["POST", "GET"])
 def getshering():
     if request.method == "GET":
-      tech = sql.sql_select('tech',{'stat':['в простое','в аренде']})['items']
-      return {'response:':True,'items':tech}
-  
+        tech = sql.sql_select('tech', {'stat': ['в простое', 'в аренде']})['items']
+        return {'response:': True, 'items': tech}
+
+
 @app.route("/changeshering", methods=["POST", "GET"])
 def changeshering():
     if request.method == "GET":
-      id_s = request.args['id']
-      stat = request.args['stat']
-      return sql.sql_update('tech',{'id':id_s,'stat':stat})
-  
+        id_s = request.args['id']
+        stat = request.args['stat']
+        return sql.sql_update('tech', {'id': id_s, 'stat': stat})
+
+
 if __name__ == '__main__':
     app.run()
-

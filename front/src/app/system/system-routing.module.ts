@@ -8,6 +8,7 @@ import { PageForemanComponent } from './page-foreman/page-foreman.component';
 import { PageWorkerComponent } from './page-worker/page-worker.component';
 import { StreamPageComponent } from './stream-page/stream-page.component';
 import { SystemComponent } from './system.component';
+import {BimComponent} from "./bim/bim.component";
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'page-foreman', component: PageForemanComponent },
       { path: 'page-worker', component: PageWorkerComponent },
       { path: 'computer-vision', component: ComputerVisionComponent },
+      { path: 'bim', component: BimComponent },
     ]
   },
 ];
